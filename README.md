@@ -1,20 +1,57 @@
 # nyan-army-web
 
-Proyecto de demos de Nyan Cat (horizontal, vertical, combinado y colisiones) migrado a **Vite** para desarrollo y build estático.
+Proyecto de demos de Nyan Cat migrado a **Vite** para desarrollo local y build estático de producción.
 
-## Requisitos
+## Estructura del repositorio
 
-- Node.js 18+
-- npm
+```text
+.
+├── index.html
+├── nyancat.html
+├── nyancat-vertical.html
+├── nyancat-combined.html
+├── nyancat-collision.html
+├── nyancat-collision-diagonal.html
+├── public/
+│   └── assets/
+│       ├── nyan-cat-only.svg
+│       ├── nyan-sprite.svg
+│       ├── nyan-trail.svg
+│       └── nyancat.svg
+├── package.json
+├── package-lock.json
+├── vite.config.js
+└── README.md
+```
 
-## Desarrollo local (Vite)
+## ¿Qué archivos son de Vite y cuáles no?
+
+### Archivos de Vite (infraestructura)
+- `package.json` → scripts (`dev`, `build`, `preview`) y dependencia de Vite.
+- `package-lock.json` → lockfile de npm.
+- `vite.config.js` → configuración de build multipágina.
+- `.gitignore` → ignora `node_modules` y `dist`.
+
+### Archivos de la app (contenido estático)
+- Entradas HTML:
+  - `index.html`
+  - `nyancat.html`
+  - `nyancat-vertical.html`
+  - `nyancat-combined.html`
+  - `nyancat-collision.html`
+  - `nyancat-collision-diagonal.html`
+- Assets estáticos:
+  - `public/assets/nyan-cat-only.svg`
+  - `public/assets/nyan-sprite.svg`
+  - `public/assets/nyan-trail.svg`
+  - `public/assets/nyancat.svg`
+
+## Desarrollo local
 
 ```bash
 npm install
 npm run dev
 ```
-
-Abre la URL que te muestre Vite (normalmente `http://localhost:5173`).
 
 ## Build de producción
 
@@ -23,7 +60,9 @@ npm run build
 npm run preview
 ```
 
-## Páginas disponibles
+El build queda en `dist/` y está listo para deploy como sitio estático (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3+CloudFront, etc.).
+
+## Rutas disponibles
 
 - `/` → demo principal
 - `/nyancat.html` → varios gatos en direcciones opuestas
@@ -31,19 +70,3 @@ npm run preview
 - `/nyancat-combined.html` → horizontal + vertical
 - `/nyancat-collision.html` → colisiones múltiples
 - `/nyancat-collision-diagonal.html` → colisiones con cola diagonal
-
-## Migración a tu nuevo repositorio
-
-Cuando crees el repo nuevo en GitHub, desde esta carpeta puedes hacer:
-
-```bash
-git remote add origin <TU_URL_DEL_REPO>
-git push -u origin work
-```
-
-Si prefieres usar `main` en lugar de `work`:
-
-```bash
-git branch -M main
-git push -u origin main
-```
