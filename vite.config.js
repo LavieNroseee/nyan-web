@@ -11,6 +11,7 @@ const pages = [
 ];
 
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || '/',
   build: {
     rollupOptions: {
       input: Object.fromEntries(pages.map((page) => [page.replace('.html', ''), resolve(__dirname, page)])),
