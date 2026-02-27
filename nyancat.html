@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyan Army Web - Multi Cats</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow: hidden;
+        background: #22497b;
+      }
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .sparkle-field {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .sparkle-frame6 { animation: sparkle 0.42s linear 0.35s infinite; }
+      .sparkle-frame5 { animation: sparkle 0.42s linear 0.28s infinite; }
+      .sparkle-frame4 { animation: sparkle 0.42s linear 0.21s infinite; }
+      .sparkle-frame3 { animation: sparkle 0.42s linear 0.14s infinite; }
+      .sparkle-frame2 { animation: sparkle 0.42s linear 0.07s infinite; }
+      .sparkle-frame1 { animation: sparkle 0.42s linear 0s infinite; }
+
+      @keyframes sparkle {
+        0%,
+        16.666666% { opacity: 1; }
+
+        16.6666666%,
+        100% { opacity: 0; }
+      }
+
+      .nyan-run {
+        position: absolute;
+        width: 320px;
+        height: 84px;
+      }
+
+      .nyan-ltr {
+        transform: translate(-380px, -50%);
+        animation: fly-ltr 7.5s linear infinite;
+      }
+
+      .nyan-rtl {
+        transform: translate(calc(100vw + 30px), -50%) scaleX(-1);
+        animation: fly-rtl 8.4s linear infinite;
+      }
+
+      .row-1 { top: 28%; }
+      .row-2 { top: 48%; }
+      .row-3 { top: 68%; }
+
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .trail-1 { transform: translateX(-180px); opacity: 0.22; }
+      .trail-2 { transform: translateX(-120px); opacity: 0.4; }
+      .trail-3 { transform: translateX(-65px); opacity: 0.62; }
+      .sprite { z-index: 5; }
+
+      @keyframes fly-ltr {
+        from { transform: translate(-380px, -50%); }
+        to { transform: translate(calc(100vw + 30px), -50%); }
+      }
+
+      @keyframes fly-rtl {
+        from { transform: translate(calc(100vw + 30px), -50%) scaleX(-1); }
+        to { transform: translate(-380px, -50%) scaleX(-1); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Multiple Nyan Cats flying in opposite directions on a blue background">
+      <svg class="sparkle-field" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <g id="sparkle" transform="scale(0.9)" stroke="#d9f0ff">
+            <path class="sparkle-frame1" d="M3.5 0 v2 M7 3.5 h-2 M3.5 7 v-2 M0 3.5 h2 M3 3.5 h1" />
+            <path class="sparkle-frame2" d="M3 0.5 h1 M5 1.5 h1 M6 3.5 h1 M5 5.5 h1 M3 6.5 h1 M1 5.5 h1 M0 3.5 h1 M1 1.5 h1" />
+            <path class="sparkle-frame3" d="M3 0.5 h1 M6 3.5 h1 M3 6.5 h1 M0 3.5 h1" />
+            <path class="sparkle-frame4" d="M3 3.5 h1" />
+            <path class="sparkle-frame5" d="M3 2.5 h1 M4 3.5 h1 M3 4.5 h1 M2 3.5 h1" />
+            <path class="sparkle-frame6" d="M3.5 1 v2 M4 3.5 h2 M3.5 4 v2 M1 3.5 h2" />
+          </g>
+        </defs>
+        <use href="#sparkle"><animateMotion dur="0.77s" repeatCount="indefinite" path="M250 10 70 10" /></use>
+        <use href="#sparkle"><animateMotion begin="0.2566s" dur="0.77s" repeatCount="indefinite" path="M255 23 65 23" /></use>
+        <use href="#sparkle"><animateMotion begin="0.5133s" dur="0.77s" repeatCount="indefinite" path="M260 36 60 36" /></use>
+        <use href="#sparkle"><animateMotion begin="0.1283s" dur="0.77s" repeatCount="indefinite" path="M260 130 60 130" /></use>
+        <use href="#sparkle"><animateMotion begin="0.385s" dur="0.77s" repeatCount="indefinite" path="M255 143 65 143" /></use>
+        <use href="#sparkle"><animateMotion begin="0.6416s" dur="0.77s" repeatCount="indefinite" path="M250 166 70 166" /></use>
+      </svg>
+
+      <div class="nyan-run nyan-ltr row-1">
+        <img class="layer trail-1" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-2" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-3" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer sprite" src="nyan-sprite.svg" alt="Animated Nyan Cat" />
+      </div>
+
+      <div class="nyan-run nyan-rtl row-2">
+        <img class="layer trail-1" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-2" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-3" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer sprite" src="nyan-sprite.svg" alt="Animated Nyan Cat" />
+      </div>
+
+      <div class="nyan-run nyan-ltr row-3" style="animation-duration: 9.2s">
+        <img class="layer trail-1" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-2" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-3" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer sprite" src="nyan-sprite.svg" alt="Animated Nyan Cat" />
+      </div>
+    </main>
+  </body>
+</html>

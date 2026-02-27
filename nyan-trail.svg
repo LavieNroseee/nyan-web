@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 58 282 73">
+  <defs>
+    <radialGradient id="BackgroundGradient">
+      <stop offset="0%" stop-color="#005093" />
+      <stop offset="100%" stop-color="#002953" />
+    </radialGradient>
+
+    <g id="sparkle" transform="scale(2)" stroke="white">
+      <!-- <circle rx="0" ry="0" r="10" fill="" /> -->
+      <style>
+        .sparkle-frame6 {
+          animation: sparkle 0.42s linear 0.35s infinite;
+        }
+
+        .sparkle-frame5 {
+          animation: sparkle 0.42s linear 0.28s infinite;
+        }
+
+        .sparkle-frame4 {
+          animation: sparkle 0.42s linear 0.21s infinite;
+        }
+
+        .sparkle-frame3 {
+          animation: sparkle 0.42s linear 0.14s infinite;
+        }
+
+        .sparkle-frame2 {
+          animation: sparkle 0.42s linear 0.07s infinite;
+        }
+
+        .sparkle-frame1 {
+          animation: sparkle 0.42s linear 0s infinite;
+        }
+
+        @keyframes sparkle {
+          0% {
+            opacity: 1;
+          }
+
+          16.666666% {
+            opacity: 1;
+          }
+
+          16.6666666% {
+            opacity: 0;
+          }
+
+          100% {
+            opacity: 0;
+          }
+        }
+      </style>
+      <path class="sparkle-frame1" d="M3.5 0 v2 M7 3.5 h-2 M3.5 7 v-2 M0 3.5 h2 M3 3.5 h1" />
+      <path class="sparkle-frame2"
+        d="M3 0.5 h1 M5 1.5 h1 M6 3.5 h1 M5 5.5 h1 M3 6.5 h1 M1 5.5 h1 M0 3.5 h1 M1 1.5 h1" />
+      <path class="sparkle-frame3" d="M3 0.5 h1 M6 3.5 h1 M3 6.5 h1 M0 3.5 h1" />
+      <path class="sparkle-frame4" d="M3 3.5 h1" />
+      <path class="sparkle-frame5" d="M3 2.5 h1 M4 3.5 h1 M3 4.5 h1 M2 3.5 h1" />
+      <path class="sparkle-frame6" d="M3.5 1 v2 M4 3.5 h2 M3.5 4 v2 M1 3.5 h2" />
+    </g>
+  </defs>
+  <svg id="rainbow" y="58.5">
+    <defs>
+      <linearGradient id="RainbowGradient" gradientTransform="rotate(90)">
+        <stop offset="0%" stop-color="#FD1B00" />
+        <stop offset="16.66%" stop-color="#FD1B00" />
+        <stop offset="16.67%" stop-color="#FD9B01" />
+        <stop offset="33.33%" stop-color="#FD9B01" />
+        <stop offset="33.34%" stop-color="#FDEF01" />
+        <stop offset="49.99%" stop-color="#FDEF01" />
+        <stop offset="50.00%" stop-color="#20DB01" />
+        <stop offset="66.66%" stop-color="#20DB01" />
+        <stop offset="66.67%" stop-color="#008AFC" />
+        <stop offset="83.33%" stop-color="#008AFC" />
+        <stop offset="83.34%" stop-color="#6D3FFC" />
+        <stop offset="100%" stop-color="#6D3FFC" />
+      </linearGradient>
+    </defs>
+    <style>
+      .rainbow-container {
+        animation: rainbow-leftright 0.42s linear infinite;
+      }
+
+      .rainbow-piece0 {
+        animation: rainbow-updown 0.42s linear infinite;
+      }
+
+      .rainbow-piece1 {
+        animation: rainbow-updown 0.42s linear -0.21s infinite;
+      }
+
+      @keyframes rainbow-updown {
+        0% {
+          transform: translate(0, 0px);
+        }
+
+        49.99% {
+          transform: translate(0, 0px);
+        }
+
+        50% {
+          transform: translate(0, 4px);
+        }
+
+        100% {
+          transform: translate(0, 4px);
+        }
+      }
+
+      @keyframes rainbow-leftright {
+        0% {
+          transform: translate(0px, 0px);
+        }
+
+        49.99% {
+          transform: translate(0px, 0px);
+        }
+
+        50% {
+          transform: translate(-4px, 0px);
+        }
+
+        100% {
+          transform: translate(-4px, 0px);
+        }
+      }
+    </style>
+    <g class="rainbow-container">
+      <rect class="rainbow-piece rainbow-piece0" x="-59" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.28" />
+      <rect class="rainbow-piece rainbow-piece1" x="-29.5" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.42" />
+      <rect class="rainbow-piece rainbow-piece0" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.58">
+        <!-- <animateTransform attributeName="transform" type="translate" values="0 -5; 0 -5; 0 5;  0 5" dur="0.42s" repeatCount="indefinite" /> -->
+      </rect>
+      <rect class="rainbow-piece rainbow-piece1" x="29.5" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.72" />
+      <rect class="rainbow-piece rainbow-piece0" x="59" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.84" />
+      <rect class="rainbow-piece rainbow-piece1" x="88.5" width="30" height="54" fill="url('#RainbowGradient')" opacity="0.94" />
+      <rect class="rainbow-piece rainbow-piece0" x="118" width="30" height="54" fill="url('#RainbowGradient')" />
+
+    </g>
+  </svg>
+
+</svg>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyan Collision Diagonal Trail Test</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; margin: 0; }
+      body { overflow: hidden; background: #22497b; }
+
+      .stage { position: relative; width: 100%; height: 100vh; }
+
+      .sparkle-field {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .sparkle-frame6 { animation: sparkle 0.42s linear 0.35s infinite; }
+      .sparkle-frame5 { animation: sparkle 0.42s linear 0.28s infinite; }
+      .sparkle-frame4 { animation: sparkle 0.42s linear 0.21s infinite; }
+      .sparkle-frame3 { animation: sparkle 0.42s linear 0.14s infinite; }
+      .sparkle-frame2 { animation: sparkle 0.42s linear 0.07s infinite; }
+      .sparkle-frame1 { animation: sparkle 0.42s linear 0s infinite; }
+
+      @keyframes sparkle {
+        0%, 16.666666% { opacity: 1; }
+        16.6666666%, 100% { opacity: 0; }
+      }
+
+      #trail-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .trail-segment {
+        position: absolute;
+        width: 54px;
+        height: 20px;
+        transform-origin: 100% 50%;
+        border-radius: 2px;
+        background: linear-gradient(
+          90deg,
+          #ff1b00 0%, #ff1b00 16.66%,
+          #ff9b01 16.67%, #ff9b01 33.33%,
+          #fdef01 33.34%, #fdef01 50%,
+          #20db01 50.01%, #20db01 66.66%,
+          #008afc 66.67%, #008afc 83.33%,
+          #6d3ffc 83.34%, #6d3ffc 100%
+        );
+      }
+
+      #cat {
+        position: absolute;
+        width: 110px;
+        height: auto;
+        will-change: transform;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Collision test with diagonal rainbow trail">
+      <svg class="sparkle-field" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <g id="sparkle" transform="scale(0.9)" stroke="#d9f0ff">
+            <path class="sparkle-frame1" d="M3.5 0 v2 M7 3.5 h-2 M3.5 7 v-2 M0 3.5 h2 M3 3.5 h1" />
+            <path class="sparkle-frame2" d="M3 0.5 h1 M5 1.5 h1 M6 3.5 h1 M5 5.5 h1 M3 6.5 h1 M1 5.5 h1 M0 3.5 h1 M1 1.5 h1" />
+            <path class="sparkle-frame3" d="M3 0.5 h1 M6 3.5 h1 M3 6.5 h1 M0 3.5 h1" />
+            <path class="sparkle-frame4" d="M3 3.5 h1" />
+            <path class="sparkle-frame5" d="M3 2.5 h1 M4 3.5 h1 M3 4.5 h1 M2 3.5 h1" />
+            <path class="sparkle-frame6" d="M3.5 1 v2 M4 3.5 h2 M3.5 4 v2 M1 3.5 h2" />
+          </g>
+        </defs>
+        <use href="#sparkle"><animateMotion dur="0.77s" repeatCount="indefinite" path="M250 10 70 10" /></use>
+        <use href="#sparkle"><animateMotion begin="0.2566s" dur="0.77s" repeatCount="indefinite" path="M255 23 65 23" /></use>
+        <use href="#sparkle"><animateMotion begin="0.5133s" dur="0.77s" repeatCount="indefinite" path="M260 36 60 36" /></use>
+        <use href="#sparkle"><animateMotion begin="0.1283s" dur="0.77s" repeatCount="indefinite" path="M260 130 60 130" /></use>
+        <use href="#sparkle"><animateMotion begin="0.385s" dur="0.77s" repeatCount="indefinite" path="M255 143 65 143" /></use>
+        <use href="#sparkle"><animateMotion begin="0.6416s" dur="0.77s" repeatCount="indefinite" path="M250 166 70 166" /></use>
+      </svg>
+
+      <div id="trail-layer" aria-hidden="true"></div>
+      <img id="cat" src="nyan-cat-only.svg" alt="Nyan Cat with diagonal collision trail" />
+    </main>
+
+    <script>
+      const cat = document.getElementById('cat');
+      const trailLayer = document.getElementById('trail-layer');
+
+      const CAT = { w: 110, h: 73 };
+      const state = { x: 240, y: 130, vx: 3.4, vy: 2.6 };
+
+      const TRAIL_COUNT = 18;
+      const history = [];
+      const segments = [];
+
+      for (let i = 0; i < TRAIL_COUNT; i += 1) {
+        const seg = document.createElement('div');
+        seg.className = 'trail-segment';
+        seg.style.opacity = `${Math.max(0.12, 0.95 - i * 0.045)}`;
+        segments.push(seg);
+        trailLayer.appendChild(seg);
+      }
+
+      function clampHistory() {
+        const max = TRAIL_COUNT * 5;
+        if (history.length > max) history.length = max;
+      }
+
+      function tick() {
+        const maxX = window.innerWidth - CAT.w;
+        const maxY = window.innerHeight - CAT.h;
+
+        state.x += state.vx;
+        state.y += state.vy;
+
+        if (state.x <= 0) {
+          state.x = 0;
+          state.vx = Math.abs(state.vx);
+        } else if (state.x >= maxX) {
+          state.x = maxX;
+          state.vx = -Math.abs(state.vx);
+        }
+
+        if (state.y <= 0) {
+          state.y = 0;
+          state.vy = Math.abs(state.vy);
+        } else if (state.y >= maxY) {
+          state.y = maxY;
+          state.vy = -Math.abs(state.vy);
+        }
+
+        history.unshift({ x: state.x, y: state.y });
+        clampHistory();
+
+        const facing = state.vx >= 0 ? 1 : -1;
+        cat.style.transform = `translate(${state.x}px, ${state.y}px) scaleX(${facing})`;
+
+        for (let i = 0; i < TRAIL_COUNT; i += 1) {
+          const idx = i * 3 + 2;
+          const p = history[idx] || history[history.length - 1] || { x: state.x, y: state.y };
+          const prev = history[idx + 2] || p;
+          const dx = p.x - prev.x;
+          const dy = p.y - prev.y;
+          const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+          const anchorX = p.x + 18;
+          const anchorY = p.y + CAT.h - 10;
+          segments[i].style.transform = `translate(${anchorX}px, ${anchorY}px) rotate(${angle}deg)`;
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    </script>
+  </body>
+</html>

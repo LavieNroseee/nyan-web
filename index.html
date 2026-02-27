@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyan Army Web</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow: hidden;
+        background: #22497b;
+      }
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .sparkle-field {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .sparkle-frame6 { animation: sparkle 0.42s linear 0.35s infinite; }
+      .sparkle-frame5 { animation: sparkle 0.42s linear 0.28s infinite; }
+      .sparkle-frame4 { animation: sparkle 0.42s linear 0.21s infinite; }
+      .sparkle-frame3 { animation: sparkle 0.42s linear 0.14s infinite; }
+      .sparkle-frame2 { animation: sparkle 0.42s linear 0.07s infinite; }
+      .sparkle-frame1 { animation: sparkle 0.42s linear 0s infinite; }
+
+      @keyframes sparkle {
+        0%,
+        16.666666% { opacity: 1; }
+
+        16.6666666%,
+        100% { opacity: 0; }
+      }
+
+      .nyan-run {
+        position: absolute;
+        top: 50%;
+        width: 320px;
+        height: 84px;
+        transform: translate(-380px, -50%);
+        animation: fly-horizontal 7.5s linear infinite;
+      }
+
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .trail-1 {
+        transform: translateX(-180px);
+        opacity: 0.22;
+      }
+
+      .trail-2 {
+        transform: translateX(-120px);
+        opacity: 0.4;
+      }
+
+      .trail-3 {
+        transform: translateX(-65px);
+        opacity: 0.62;
+      }
+
+      .sprite { z-index: 5; }
+
+      @keyframes fly-horizontal {
+        from { transform: translate(-380px, -50%); }
+        to { transform: translate(calc(100vw + 30px), -50%); }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Nyan Cat flying from left to right on a blue background with animated stars">
+      <svg class="sparkle-field" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <g id="sparkle" transform="scale(0.9)" stroke="#d9f0ff">
+            <path class="sparkle-frame1" d="M3.5 0 v2 M7 3.5 h-2 M3.5 7 v-2 M0 3.5 h2 M3 3.5 h1" />
+            <path class="sparkle-frame2" d="M3 0.5 h1 M5 1.5 h1 M6 3.5 h1 M5 5.5 h1 M3 6.5 h1 M1 5.5 h1 M0 3.5 h1 M1 1.5 h1" />
+            <path class="sparkle-frame3" d="M3 0.5 h1 M6 3.5 h1 M3 6.5 h1 M0 3.5 h1" />
+            <path class="sparkle-frame4" d="M3 3.5 h1" />
+            <path class="sparkle-frame5" d="M3 2.5 h1 M4 3.5 h1 M3 4.5 h1 M2 3.5 h1" />
+            <path class="sparkle-frame6" d="M3.5 1 v2 M4 3.5 h2 M3.5 4 v2 M1 3.5 h2" />
+          </g>
+        </defs>
+
+        <use href="#sparkle"><animateMotion dur="0.77s" repeatCount="indefinite" path="M250 10 70 10" /></use>
+        <use href="#sparkle"><animateMotion begin="0.2566s" dur="0.77s" repeatCount="indefinite" path="M255 23 65 23" /></use>
+        <use href="#sparkle"><animateMotion begin="0.5133s" dur="0.77s" repeatCount="indefinite" path="M260 36 60 36" /></use>
+        <use href="#sparkle"><animateMotion begin="0.1283s" dur="0.77s" repeatCount="indefinite" path="M260 130 60 130" /></use>
+        <use href="#sparkle"><animateMotion begin="0.385s" dur="0.77s" repeatCount="indefinite" path="M255 143 65 143" /></use>
+        <use href="#sparkle"><animateMotion begin="0.6416s" dur="0.77s" repeatCount="indefinite" path="M250 166 70 166" /></use>
+        <use href="#sparkle"><animateMotion dur="0.84s" repeatCount="indefinite" path="M250 105 70 105" /></use>
+        <use href="#sparkle"><animateMotion begin="0.28s" dur="0.84s" repeatCount="indefinite" path="M250 73 70 73" /></use>
+        <use href="#sparkle"><animateMotion begin="0.12s" dur="0.74s" repeatCount="indefinite" path="M245 50 75 50" /></use>
+        <use href="#sparkle"><animateMotion begin="0.33s" dur="0.91s" repeatCount="indefinite" path="M255 88 65 88" /></use>
+        <use href="#sparkle"><animateMotion begin="0.47s" dur="0.82s" repeatCount="indefinite" path="M250 118 70 118" /></use>
+        <use href="#sparkle"><animateMotion begin="0.22s" dur="0.96s" repeatCount="indefinite" path="M258 154 62 154" /></use>
+        <use href="#sparkle"><animateMotion begin="0.58s" dur="0.79s" repeatCount="indefinite" path="M248 26 72 26" /></use>
+        <use href="#sparkle"><animateMotion begin="0.08s" dur="0.87s" repeatCount="indefinite" path="M252 64 68 64" /></use>
+        <use href="#sparkle"><animateMotion begin="0.41s" dur="0.9s" repeatCount="indefinite" path="M246 141 74 141" /></use>
+        <use href="#sparkle"><animateMotion begin="0.67s" dur="0.83s" repeatCount="indefinite" path="M259 102 61 102" /></use>
+        <use href="#sparkle"><animateMotion begin="0.19s" dur="0.92s" repeatCount="indefinite" path="M315 15 5 15" /></use>
+        <use href="#sparkle"><animateMotion begin="0.44s" dur="0.86s" repeatCount="indefinite" path="M312 168 8 168" /></use>
+        <use href="#sparkle"><animateMotion begin="0.73s" dur="0.95s" repeatCount="indefinite" path="M318 48 2 48" /></use>
+        <use href="#sparkle"><animateMotion begin="0.27s" dur="0.88s" repeatCount="indefinite" path="M316 132 4 132" /></use>
+        <use href="#sparkle"><animateMotion begin="0.51s" dur="0.9s" repeatCount="indefinite" path="M310 90 10 90" /></use>
+      </svg>
+
+      <div class="nyan-run">
+        <img class="layer trail-1" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-2" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-3" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer sprite" src="nyan-sprite.svg" alt="Animated Nyan Cat with rainbow trail" />
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyan Collision Test</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; margin: 0; }
+      body { overflow: hidden; background: #22497b; }
+      .stage { position: relative; width: 100%; height: 100vh; }
+
+      .sparkle-field {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .sparkle-frame6 { animation: sparkle 0.42s linear 0.35s infinite; }
+      .sparkle-frame5 { animation: sparkle 0.42s linear 0.28s infinite; }
+      .sparkle-frame4 { animation: sparkle 0.42s linear 0.21s infinite; }
+      .sparkle-frame3 { animation: sparkle 0.42s linear 0.14s infinite; }
+      .sparkle-frame2 { animation: sparkle 0.42s linear 0.07s infinite; }
+      .sparkle-frame1 { animation: sparkle 0.42s linear 0s infinite; }
+      @keyframes sparkle {
+        0%, 16.666666% { opacity: 1; }
+        16.6666666%, 100% { opacity: 0; }
+      }
+
+      #cat-layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      .cat-entity {
+        position: absolute;
+        width: 220px;
+        height: 58px;
+        will-change: transform;
+      }
+
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .trail-1 { transform: translateX(-126px); opacity: 0.22; }
+      .trail-2 { transform: translateX(-84px); opacity: 0.4; }
+      .trail-3 { transform: translateX(-46px); opacity: 0.62; }
+      .sprite { z-index: 5; }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="Collision test: multiple Nyan Cats bouncing with walls and each other">
+      <svg class="sparkle-field" viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <g id="sparkle" transform="scale(0.9)" stroke="#d9f0ff">
+            <path class="sparkle-frame1" d="M3.5 0 v2 M7 3.5 h-2 M3.5 7 v-2 M0 3.5 h2 M3 3.5 h1" />
+            <path class="sparkle-frame2" d="M3 0.5 h1 M5 1.5 h1 M6 3.5 h1 M5 5.5 h1 M3 6.5 h1 M1 5.5 h1 M0 3.5 h1 M1 1.5 h1" />
+            <path class="sparkle-frame3" d="M3 0.5 h1 M6 3.5 h1 M3 6.5 h1 M0 3.5 h1" />
+            <path class="sparkle-frame4" d="M3 3.5 h1" />
+            <path class="sparkle-frame5" d="M3 2.5 h1 M4 3.5 h1 M3 4.5 h1 M2 3.5 h1" />
+            <path class="sparkle-frame6" d="M3.5 1 v2 M4 3.5 h2 M3.5 4 v2 M1 3.5 h2" />
+          </g>
+        </defs>
+        <use href="#sparkle"><animateMotion dur="0.77s" repeatCount="indefinite" path="M250 10 70 10" /></use>
+        <use href="#sparkle"><animateMotion begin="0.2566s" dur="0.77s" repeatCount="indefinite" path="M255 23 65 23" /></use>
+        <use href="#sparkle"><animateMotion begin="0.5133s" dur="0.77s" repeatCount="indefinite" path="M260 36 60 36" /></use>
+        <use href="#sparkle"><animateMotion begin="0.1283s" dur="0.77s" repeatCount="indefinite" path="M260 130 60 130" /></use>
+        <use href="#sparkle"><animateMotion begin="0.385s" dur="0.77s" repeatCount="indefinite" path="M255 143 65 143" /></use>
+        <use href="#sparkle"><animateMotion begin="0.6416s" dur="0.77s" repeatCount="indefinite" path="M250 166 70 166" /></use>
+        <use href="#sparkle"><animateMotion begin="0.17s" dur="0.83s" repeatCount="indefinite" path="M255 56 65 56" /></use>
+        <use href="#sparkle"><animateMotion begin="0.39s" dur="0.88s" repeatCount="indefinite" path="M260 90 60 90" /></use>
+        <use href="#sparkle"><animateMotion begin="0.52s" dur="0.92s" repeatCount="indefinite" path="M258 118 62 118" /></use>
+        <use href="#sparkle"><animateMotion begin="0.24s" dur="0.79s" repeatCount="indefinite" path="M252 150 68 150" /></use>
+        <use href="#sparkle"><animateMotion begin="0.68s" dur="0.95s" repeatCount="indefinite" path="M248 72 72 72" /></use>
+        <use href="#sparkle"><animateMotion begin="0.31s" dur="0.86s" repeatCount="indefinite" path="M254 40 66 40" /></use>
+        <use href="#sparkle"><animateMotion begin="0.46s" dur="0.9s" repeatCount="indefinite" path="M256 12 64 12" /></use>
+        <use href="#sparkle"><animateMotion begin="0.58s" dur="0.84s" repeatCount="indefinite" path="M260 172 60 172" /></use>
+      </svg>
+
+      <div id="cat-layer"></div>
+          <div id="stats" style="position:absolute;left:12px;bottom:10px;color:#cfe8ff;font:14px monospace;opacity:.85;">Cats: 6 | collisions: 0</div>
+    </main>
+
+    <template id="cat-template">
+      <div class="cat-entity">
+        <img class="layer trail-1" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-2" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer trail-3" src="nyan-trail.svg" alt="" aria-hidden="true" />
+        <img class="layer sprite" src="nyan-sprite.svg" alt="Animated Nyan Cat collision test" />
+      </div>
+    </template>
+
+    <script>
+      const CAT = { w: 220, h: 58 };
+      const catLayer = document.getElementById('cat-layer');
+      const catTemplate = document.getElementById('cat-template');
+      const stats = document.getElementById('stats');
+      let collisionCount = 0;
+
+      const cats = [
+        { x: 80, y: 70, vx: 3.1, vy: 2.0 },
+        { x: 420, y: 140, vx: -2.9, vy: 2.4 },
+        { x: 740, y: 250, vx: 2.7, vy: -2.2 },
+        { x: 1040, y: 360, vx: -3.2, vy: -2.1 },
+        { x: 260, y: 480, vx: 2.5, vy: -2.8 },
+        { x: 900, y: 90, vx: -2.6, vy: 2.3 }
+      ].map((c) => {
+        const node = catTemplate.content.firstElementChild.cloneNode(true);
+        catLayer.appendChild(node);
+        return { ...c, node };
+      });
+
+      function bounceWalls(cat) {
+        const maxX = window.innerWidth - CAT.w;
+        const maxY = window.innerHeight - CAT.h;
+
+        if (cat.x <= 0) {
+          cat.x = 0;
+          cat.vx = Math.abs(cat.vx);
+        } else if (cat.x >= maxX) {
+          cat.x = maxX;
+          cat.vx = -Math.abs(cat.vx);
+        }
+
+        if (cat.y <= 0) {
+          cat.y = 0;
+          cat.vy = Math.abs(cat.vy);
+        } else if (cat.y >= maxY) {
+          cat.y = maxY;
+          cat.vy = -Math.abs(cat.vy);
+        }
+      }
+
+      function resolveCatCollision(a, b) {
+        const left = Math.max(a.x, b.x);
+        const right = Math.min(a.x + CAT.w, b.x + CAT.w);
+        const top = Math.max(a.y, b.y);
+        const bottom = Math.min(a.y + CAT.h, b.y + CAT.h);
+
+        const overlapX = right - left;
+        const overlapY = bottom - top;
+
+        if (overlapX <= 0 || overlapY <= 0) return false;
+
+        if (overlapX < overlapY) {
+          const push = overlapX / 2;
+          if (a.x < b.x) {
+            a.x -= push;
+            b.x += push;
+          } else {
+            a.x += push;
+            b.x -= push;
+          }
+          const avx = a.vx;
+          a.vx = b.vx;
+          b.vx = avx;
+        } else {
+          const push = overlapY / 2;
+          if (a.y < b.y) {
+            a.y -= push;
+            b.y += push;
+          } else {
+            a.y += push;
+            b.y -= push;
+          }
+          const avy = a.vy;
+          a.vy = b.vy;
+          b.vy = avy;
+        }
+
+        return true;
+      }
+
+      function render(cat) {
+        const facing = cat.vx >= 0 ? 1 : -1;
+        cat.node.style.transform = `translate(${cat.x}px, ${cat.y}px) scaleX(${facing})`;
+      }
+
+      function tick() {
+        for (const cat of cats) {
+          cat.x += cat.vx;
+          cat.y += cat.vy;
+          bounceWalls(cat);
+        }
+
+        for (let i = 0; i < cats.length; i += 1) {
+          for (let j = i + 1; j < cats.length; j += 1) {
+            if (resolveCatCollision(cats[i], cats[j])) collisionCount += 1;
+          }
+        }
+
+        for (const cat of cats) {
+          bounceWalls(cat);
+          render(cat);
+        }
+
+        stats.textContent = `Cats: ${cats.length} | collisions: ${collisionCount}`;
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    </script>
+  </body>
+</html>
